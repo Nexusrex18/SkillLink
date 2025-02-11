@@ -13,8 +13,8 @@ Ensure you have the following installed before proceeding:
 ### 🛠 Installation & Setup
 1. **Clone the repository:**
    ```sh
-   git clone https://github.com/your-username/your-repository.git
-   cd your-repository
+   git clone https://github.com/Nexusrex18/SkillLink.git
+   cd SkillLink
    ```
 
 2. **Install dependencies:**
@@ -47,7 +47,7 @@ We welcome contributions! Follow these steps to contribute:
 1. **Fork the repository** on GitHub.
 2. **Clone your forked repo:**
    ```sh
-   git clone https://github.com/your-username/your-forked-repo.git
+   git clone https://github.com/Nexusrex18/SkillLink.git
    ```
 3. **Create a new branch:**
    ```sh
