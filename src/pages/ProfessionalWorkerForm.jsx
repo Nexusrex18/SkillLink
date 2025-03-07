@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import loginpic from "/assets/loginpic.jpg";
+import loginpic from "/assets/loginworker2.jpg";
 export default function ProfessionalWorkerForm() {
   const [formData, setFormData] = useState({
     name: "",

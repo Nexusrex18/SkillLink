@@ -11,6 +11,8 @@ import Chatbot from './pages/Chatbot';
 import ChatPage from './pages/ChatPage';
 import ProfileSection from './components/ProfileSection';
 import ProfessionalWorkerProfile from './components/ProfessionalWorkerProfile';
+import JobHistory from './components/JobHistory';
+import PaymentPage from './pages/PaymentPage';
 
 function App() {
   return (
@@ -26,6 +28,8 @@ function App() {
         <Route path='/chat' element={<ChatPage />} />
         <Route path='/user-profile' element={<ProfileSection />} />
         <Route path='/worker-profile' element={<ProfessionalWorkerProfile />} />
+        <Route path='/job-history' element={<JobHistory />} />
+        <Route path='/pay' element={<PaymentPage />} />
       </Routes>
       <Chatbot />
       <Footer />

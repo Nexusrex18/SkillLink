@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
-import loginpic from "/assets/loginpic.jpg";
+import loginpic from "/assets/loginworker.jpg";
 
 export default function AuthPage() {
   const [isLogin, setIsLogin] = useState(true);

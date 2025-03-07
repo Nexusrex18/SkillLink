@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link ,useNavigate } from 'react-router-dom';
 import { Calendar, Clock, Star, MapPin, Phone, Mail, MessageSquare, Award, ThumbsUp, Briefcase } from 'lucide-react';
 
 // Extended professional data with more details
@@ -99,6 +99,7 @@ const serviceDescriptions = {
 
 const ServiceDetail = () => {
   const { serviceSlug } = useParams();
+  const navigate = useNavigate();
   const professionals = professionalsData[serviceSlug] || [];
   const [selectedPro, setSelectedPro] = useState(null);
   const [bookingMode, setBookingMode] = useState(false);
@@ -161,15 +162,15 @@ const ServiceDetail = () => {
           {serviceDescriptions[serviceSlug]}
         </p>
         <div className="flex flex-wrap gap-4 mt-6">
-          <div className="flex items-center bg-green-500 bg-opacity-20 px-4 py-2 rounded-full">
+          <div className="flex items-center bg-white text-green-600 bg-opacity-20 px-4 py-2 rounded-full">
             <ThumbsUp className="w-5 h-5 mr-2" />
             <span>Verified Professionals</span>
           </div>
-          <div className="flex items-center bg-green-500 bg-opacity-20 px-4 py-2 rounded-full">
+          <div className="flex items-center bg-white text-green-600 bg-opacity-20 px-4 py-2 rounded-full">
             <Award className="w-5 h-5 mr-2" />
             <span>Satisfaction Guarantee</span>
           </div>
-          <div className="flex items-center bg-green-500 bg-opacity-20 px-4 py-2 rounded-full">
+          <div className="flex items-center bg-white text-green-600 bg-opacity-20 px-4 py-2 rounded-full">
             <Briefcase className="w-5 h-5 mr-2" />
             <span>Secure Payments</span>
           </div>
@@ -253,10 +254,10 @@ const ServiceDetail = () => {
                       <Calendar className="w-4 h-4 mr-2" />
                       Book Now
                     </button>
-                    <button className="bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 py-2 px-4 rounded-md font-medium transition-colors flex items-center justify-center">
+                    <Link to={'/chat'} className="bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 py-2 px-4 rounded-md font-medium transition-colors flex items-center justify-center">
                       <MessageSquare className="w-4 h-4 mr-2" />
                       Contact
-                    </button>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -306,7 +307,8 @@ const ServiceDetail = () => {
                   Cancel
                 </button>
                 <button 
-                  type="submit" 
+                  type="submit"
+                  onClick={() => navigate('/pay')} 
                   className="bg-green-600 hover:bg-green-700 text-white py-2 px-6 rounded-md font-medium transition-colors flex-1"
                 >
                   Confirm Booking
