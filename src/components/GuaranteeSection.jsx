@@ -1,4 +1,3 @@
-import React from "react";
 import happinessIcon from "/assets/happiness.png"; // Update path
 import blobBackground from "/assets/happiness.png"; // Update path
 
@@ -19,7 +18,7 @@ function GuaranteeSection() {
             Happiness Pledge
           </h4>
           <p className="text-gray-700 mt-2">
-            If you're not satisfied, we’ll work to make it right.
+            If youre not satisfied, we’ll work to make it right.
           </p>
         </div>
 

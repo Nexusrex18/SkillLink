@@ -1,4 +1,3 @@
-import React from "react";
 import leftBlob from "/assets/left.png";
 import rightBlob from "/assets/right.png";
 

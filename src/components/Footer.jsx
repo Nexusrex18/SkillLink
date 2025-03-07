@@ -1,7 +1,8 @@
-import React from "react";
-import { FaFacebook, FaInstagram, FaTiktok, FaLinkedin, FaQuestionCircle } from "react-icons/fa";
+import { FaFacebook, FaInstagram, FaTiktok, FaLinkedin } from "react-icons/fa";
+// import { useNavigate } from 'react-router-dom'
 
 function Footer() {
+  // const router = useNavigate();
   return (
     <footer className="bg-gray-700 text-gray-300 py-6 px-4">
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -9,7 +10,7 @@ function Footer() {
         {/* Social Media Section */}
         <div className="flex flex-col items-center md:items-start">
           <p className="text-lg font-semibold mb-2 text-center md:text-left">
-            Follow us! We're friendly:
+            Follow us! Were friendly:
           </p>
           <div className="flex space-x-3">
             <a href="#" className="hover:text-white"><FaFacebook size={20} /></a>
@@ -46,12 +47,12 @@ function Footer() {
       </div>
 
       {/* Help Button */}
-      <div className="fixed bottom-5 left-5">
-        <button className="bg-green-600 text-white px-4 py-2 rounded-full flex items-center space-x-2 shadow-lg">
+      {/* <div className="fixed bottom-5 left-5">
+        <button className="bg-green-600 text-white px-4 py-2 rounded-full flex items-center space-x-2 shadow-lg" onClick={() => router("/chat")}>
           <FaQuestionCircle size={20} />
           <span>Help</span>
         </button>
-      </div>
+      </div> */}
     </footer>
   );
 }

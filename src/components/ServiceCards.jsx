@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { FaTools, FaTruckMoving, FaBroom, FaTree, FaHammer, FaPaintRoller, FaFire, FaRegDotCircle } from "react-icons/fa";
 
 function ServiceCards() {
@@ -23,7 +23,7 @@ function ServiceCards() {
   const [selectedService, setSelectedService] = useState("Assembly");
 
   return (
-    <section className="flex justify-center items-center py-12 bg-gray w-full">
+    <section className="flex justify-center items-center py-8 bg-gray w-full">
       <div className="bg-white p-6 rounded-lg w-full max-w-none px-6 md:px-12">
         {/* Service Tabs */}
         <div className="flex overflow-x-auto space-x-6 border-b pb-2 justify-center">

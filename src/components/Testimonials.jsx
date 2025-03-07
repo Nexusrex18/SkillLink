@@ -1,4 +1,3 @@
-import React from "react";
 import leftBlob from "/assets/left2.png"; 
 import excellentImage from "/assets/excellent.png"; 
 
