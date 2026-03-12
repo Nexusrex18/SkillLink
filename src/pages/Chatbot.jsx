@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Send, Bot } from "lucide-react";
+import { Send, Bot, X } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { FaQuestionCircle } from "react-icons/fa";
 
@@ -48,7 +48,12 @@ const Chatbot = () => {
       {/* Chatbot UI */}
       {isOpen && (
         <div className="fixed bottom-5 right-5 w-80 bg-white shadow-lg rounded-xl border border-gray-200 overflow-hidden">
-          <div className="bg-green-600 text-white p-4 font-semibold text-center">Service Chatbot</div>
+          <div className="bg-green-600 text-white p-4 font-semibold flex justify-between items-center">
+            <span>Service Chatbot</span>
+            <button onClick={() => setIsOpen(false)}>
+              <X className="w-5 h-5 cursor-pointer" />
+            </button>
+          </div>
           <div className="p-4 h-64 overflow-y-auto flex flex-col gap-3">
             {messages.map((msg, index) => (
               <div key={index} className={`flex ${msg.sender === "user" ? "justify-end" : "justify-start"}`}>
