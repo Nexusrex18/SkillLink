@@ -82,7 +82,7 @@ const PaymentPage = () => {
   
   if (isComplete) {
     return (
-      <div className="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-md">
+      <div className="max-w-2xl mx-auto p-6 bg-white rounded-2xl shadow-2xl border-2 border-green-200 my-10">
         <div className="text-center py-8">
           <div className="inline-block p-3 bg-green-100 rounded-full mb-4">
             <CheckCircle className="w-16 h-16 text-green-600" />
@@ -92,8 +92,8 @@ const PaymentPage = () => {
             Your appointment with {bookingData.professionalName} has been scheduled.
           </p>
           
-          <div className="bg-gray-50 rounded-lg p-6 mb-6 text-left">
-            <h2 className="font-semibold text-lg mb-4 border-b pb-2">Booking Details</h2>
+          <div className="bg-gray-50 rounded-lg p-6 mb-6 text-left border border-green-100 shadow-inner">
+            <h2 className="font-semibold text-lg mb-4 border-b border-green-200 pb-2 text-green-700">Booking Details</h2>
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <p className="text-gray-500 text-sm">Service</p>
@@ -127,10 +127,10 @@ const PaymentPage = () => {
           </div>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/services" className="px-6 py-2 bg-white border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors">
+            <Link to="/services" className="px-6 py-2 bg-white border-2 border-green-500 text-green-600 rounded-md hover:bg-green-50 transition-colors font-medium">
               Browse More Services
             </Link>
-            <Link to="/bookings" className="px-6 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors">
+            <Link to="/bookings" className="px-6 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors font-medium border-2 border-green-700">
               View My Bookings
             </Link>
           </div>
@@ -140,7 +140,7 @@ const PaymentPage = () => {
   }
   
   return (
-    <div className="max-w-2xl mx-auto p-4">
+    <div className="max-w-2xl mx-auto p-4 my-10">
       <button 
         onClick={handleBackToBooking}
         className="flex items-center text-gray-600 hover:text-gray-800 mb-6"
