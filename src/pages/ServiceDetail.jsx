@@ -216,11 +216,17 @@ const ServiceDetail = () => {
       {/* Booking Modal */}
       {bookingMode && selectedPro && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg shadow-xl w-full max-w-md p-6">
-            <h2 className="text-2xl font-bold mb-4">
-              Book {selectedPro.name}
-            </h2>
-            <form className="space-y-4">
+          <div className="bg-white rounded-lg shadow-xl p-6 max-w-md w-full">
+            <h3 className="text-xl font-bold mb-4">Book {selectedPro.name}</h3>
+            <p className="mb-4 text-gray-700">Fill out the form below to schedule an appointment.</p>
+            
+            <form 
+              className="space-y-4"
+              onSubmit={(e) => {
+                e.preventDefault();
+                navigate('/pay');
+              }}
+            >
               <div>
                 <label className="block text-gray-700 mb-1">Preferred Date</label>
                 <input type="date" className="w-full p-2 border rounded-md" />
@@ -251,7 +257,6 @@ const ServiceDetail = () => {
                 </button>
                 <button
                   type="submit"
-                  onClick={() => navigate('/pay')}
                   className="bg-green-600 hover:bg-green-700 text-white py-2 px-6 rounded-md font-medium transition-colors flex-1"
                 >
                   Confirm Booking
