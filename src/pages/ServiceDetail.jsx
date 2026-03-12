@@ -273,7 +273,13 @@ const ServiceDetail = () => {
             <h3 className="text-xl font-bold mb-4">Book {selectedPro.name}</h3>
             <p className="mb-4 text-gray-700">Fill out the form below to schedule an appointment.</p>
             
-            <form className="space-y-4">
+            <form 
+              className="space-y-4"
+              onSubmit={(e) => {
+                e.preventDefault();
+                navigate('/pay');
+              }}
+            >
               <div>
                 <label className="block text-gray-700 mb-1">Service Date</label>
                 <input type="date" className="w-full p-2 border rounded-md" />
@@ -308,7 +314,6 @@ const ServiceDetail = () => {
                 </button>
                 <button 
                   type="submit"
-                  onClick={() => navigate('/pay')} 
                   className="bg-green-600 hover:bg-green-700 text-white py-2 px-6 rounded-md font-medium transition-colors flex-1"
                 >
                   Confirm Booking
