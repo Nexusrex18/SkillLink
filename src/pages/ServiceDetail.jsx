@@ -1,100 +1,21 @@
 import React, { useState } from 'react';
-import { useParams, Link ,useNavigate } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { Calendar, Clock, Star, MapPin, Phone, Mail, MessageSquare, Award, ThumbsUp, Briefcase } from 'lucide-react';
+import { professionalsData } from "../data/ServicesData";
+import { serviceCategories } from "../data/ServicesData";
 
-// Extended professional data with more details
-const professionalsData = {
-  painter: [
-    { 
-      id: "p1",
-      name: "John Doe", 
-      experience: "10+ years", 
-      rating: 4.9,
-      reviews: 127,
-      hourlyRate: "$25-35",
-      availability: "Weekdays & Weekends",
-      location: "Downtown & Suburbs",
-      specialties: ["Interior Painting", "Exterior Painting", "Decorative Finishes"],
-      image: "🎨",
-      bio: "Professional painter with expertise in both residential and commercial projects. Known for attention to detail and clean work."
-    },
-    { 
-      id: "p2",
-      name: "Emma Smith", 
-      experience: "8+ years", 
-      rating: 4.7,
-      reviews: 98,
-      hourlyRate: "$20-30",
-      availability: "Weekdays Only",
-      location: "North & East Districts",
-      specialties: ["Mural Painting", "Restoration", "Cabinet Refinishing"],
-      image: "🖌",
-      bio: "Specialized in custom artistic finishes and color consultation. Trained in Europe with focus on eco-friendly materials."
-    }
-  ],
-  mechanic: [
-    { 
-      id: "m1",
-      name: "Mike Johnson", 
-      experience: "15+ years", 
-      rating: 4.8,
-      reviews: 215,
-      hourlyRate: "$40-60",
-      availability: "Mon-Sat, Emergency Services",
-      location: "Citywide",
-      specialties: ["Engine Repair", "Brake Systems", "Diagnostics"],
-      image: "🔧",
-      bio: "Certified automotive technician specializing in both domestic and foreign vehicles. ASE Master Technician with dealership experience."
-    },
-    { 
-      id: "m2",
-      name: "Alex Brown", 
-      experience: "12+ years", 
-      rating: 4.5,
-      reviews: 176,
-      hourlyRate: "$35-50",
-      availability: "Weekdays & Saturday Morning",
-      location: "South District",
-      specialties: ["Electrical Systems", "Performance Tuning", "Vintage Cars"],
-      image: "🛠",
-      bio: "Motorcycle and automotive specialist with background in racing. Expertise in custom modifications and restoration projects."
-    }
-  ],
-  mason: [
-    { 
-      id: "ms1",
-      name: "James Wilson", 
-      experience: "20+ years", 
-      rating: 4.9,
-      reviews: 189,
-      hourlyRate: "$45-65",
-      availability: "Seasonal (Mar-Nov)",
-      location: "Metro Area",
-      specialties: ["Stone Walls", "Brick Restoration", "Concrete Work"],
-      image: "🧱",
-      bio: "Third-generation mason with historical restoration experience. Worked on landmark buildings and custom residential projects."
-    },
-    { 
-      id: "ms2",
-      name: "Robert Green", 
-      experience: "18+ years", 
-      rating: 4.6,
-      reviews: 147,
-      hourlyRate: "$40-60",
-      availability: "Year-round",
-      location: "West & Central Areas",
-      specialties: ["Fireplace Construction", "Patio Design", "Retaining Walls"],
-      image: "🔨",
-      bio: "Specializes in outdoor living spaces and landscape masonry. Known for creative designs integrating natural elements."
-    }
-  ]
-};
-
-// Service descriptions to provide context
+// Service descriptions - now covers ALL 10 services
 const serviceDescriptions = {
   painter: "Our skilled painters transform spaces with precision and style. Whether you need interior refreshing, exterior protection, or decorative finishes, our verified professionals deliver quality results within your timeline and budget.",
   mechanic: "From routine maintenance to complex repairs, our certified mechanics keep your vehicles running smoothly. With professional diagnostic equipment and years of hands-on experience, they provide reliable service at competitive rates.",
-  mason: "Our expert masons bring craftsmanship to your stone, brick, and concrete projects. Specializing in both aesthetic and structural work, they create durable, beautiful masonry that enhances your property's value and appearance."
+  mason: "Our expert masons bring craftsmanship to your stone, brick, and concrete projects. Specializing in both aesthetic and structural work, they create durable, beautiful masonry that enhances your property's value and appearance.",
+  assembly: "Our professional assemblers handle all types of furniture and equipment setup with precision. From IKEA to custom pieces, we ensure everything is perfectly assembled, level, and sturdy.",
+  mounting: "Our expert mounting specialists safely install TVs, shelves, mirrors, and artwork on any wall type. Using professional-grade tools, we ensure secure and level installations every time.",
+  moving: "Our reliable moving professionals handle everything from packing to heavy lifting. Experienced with fragile items and large furniture, they make your move smooth and stress-free.",
+  cleaning: "Our thorough cleaning professionals transform your home or office into a spotless environment. Using eco-friendly products, our background-checked cleaners deliver consistent, high-quality results.",
+  "outdoor-help": "Our skilled outdoor professionals handle all your yard and garden needs. From regular lawn maintenance to complete landscape transformations, we help create beautiful outdoor spaces.",
+  "home-repairs": "Our licensed handymen tackle all types of home repairs with expertise and care. From minor fixes to major repairs, we restore your home to its best condition efficiently and affordably.",
+  trending: "Explore our most in-demand services featuring the latest in smart home technology and modern installations. Our certified specialists bring cutting-edge solutions to your doorstep.",
 };
 
 const ServiceDetail = () => {
@@ -103,84 +24,114 @@ const ServiceDetail = () => {
   const professionals = professionalsData[serviceSlug] || [];
   const [selectedPro, setSelectedPro] = useState(null);
   const [bookingMode, setBookingMode] = useState(false);
-  
+
+  // Get service info from shared data
+  const serviceInfo = serviceCategories.find(s => s.slug === serviceSlug);
+
   // Format service name with proper capitalization
   const formatServiceName = (slug) => {
+    if (serviceInfo) return serviceInfo.name;
     return slug.charAt(0).toUpperCase() + slug.slice(1);
   };
-  
+
   // Render stars based on rating
   const renderStars = (rating) => {
     const fullStars = Math.floor(rating);
     const hasHalfStar = rating % 1 >= 0.5;
-    
     return (
       <div className="flex items-center">
         {[...Array(fullStars)].map((_, i) => (
           <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
         ))}
-        {hasHalfStar && <Star className="w-4 h-4 fill-yellow-400 text-yellow-400 fill-half" />}
+        {hasHalfStar && <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />}
         {[...Array(5 - fullStars - (hasHalfStar ? 1 : 0))].map((_, i) => (
-          <Star key={i + fullStars + (hasHalfStar ? 1 : 0)} className="w-4 h-4 text-yellow-400" />
+          <Star key={i + fullStars} className="w-4 h-4 text-yellow-400" />
         ))}
-        <span className="ml-2 text-gray-600">{rating} ({professional.reviews} reviews)</span>
       </div>
     );
   };
-  
+
   const handleBooking = (pro) => {
     setSelectedPro(pro);
     setBookingMode(true);
   };
-  
+
   const closeBookingForm = () => {
+    setSelectedPro(null);
     setBookingMode(false);
   };
 
   if (!serviceSlug || !professionalsData[serviceSlug]) {
     return (
-      <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md">
-        <h1 className="text-2xl font-bold text-center text-red-600">Service Not Found</h1>
-        <p className="text-center mt-4">The requested service is not available. Please try another service.</p>
-        <div className="mt-6 text-center">
-          <Link to="/services" className="inline-block px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors">
-            Browse All Services
-          </Link>
-        </div>
+      <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 p-6">
+        <h2 className="text-2xl font-bold text-gray-700 mb-4">Service Not Found</h2>
+        <p className="text-gray-500 mb-6">We couldn't find professionals for this service.</p>
+        <button
+          onClick={() => navigate('/services')}
+          className="bg-green-600 text-white px-6 py-2 rounded-md hover:bg-green-700 transition-colors"
+        >
+          Browse All Services
+        </button>
       </div>
     );
   }
 
   return (
-    <div className="max-w-6xl mx-auto p-4">
-      {/* Header Section */}
+    <div className="max-w-5xl mx-auto px-4 py-8">
+
+      {/* Back Button */}
+      <button
+        onClick={() => navigate('/services')}
+        className="flex items-center text-gray-600 hover:text-gray-800 mb-6"
+      >
+        ← Back to Services
+      </button>
+
+      {/* Hero Banner */}
       <div className="bg-gradient-to-r from-green-600 to-green-700 text-white p-8 rounded-lg shadow-md mb-8">
-        <h1 className="text-3xl md:text-4xl font-bold mb-3">
-          {formatServiceName(serviceSlug)} Services
-        </h1>
+        <div className="flex items-center gap-4 mb-3">
+          <span className="text-5xl">{serviceInfo?.image}</span>
+          <h1 className="text-3xl md:text-4xl font-bold">
+            {formatServiceName(serviceSlug)} Services
+          </h1>
+        </div>
         <p className="text-lg opacity-90 mb-4">
           {serviceDescriptions[serviceSlug]}
         </p>
-        <div className="flex flex-wrap gap-4 mt-6">
-          <div className="flex items-center bg-white text-green-600 bg-opacity-20 px-4 py-2 rounded-full">
+
+        {/* Subcategories pills */}
+        {serviceInfo?.subcategories && (
+          <div className="flex flex-wrap gap-2 mb-4">
+            {serviceInfo.subcategories.map((sub, i) => (
+              <span key={i} className="bg-white text-green-700 text-sm px-3 py-1 rounded-full font-medium">
+                {sub}
+              </span>
+            ))}
+          </div>
+        )}
+
+        <div className="flex flex-wrap gap-4 mt-4">
+          <div className="flex items-center bg-white text-green-700 px-4 py-2 rounded-full font-medium">
             <ThumbsUp className="w-5 h-5 mr-2" />
             <span>Verified Professionals</span>
           </div>
-          <div className="flex items-center bg-white text-green-600 bg-opacity-20 px-4 py-2 rounded-full">
+          <div className="flex items-center bg-white text-green-700 px-4 py-2 rounded-full font-medium">
             <Award className="w-5 h-5 mr-2" />
             <span>Satisfaction Guarantee</span>
           </div>
-          <div className="flex items-center bg-white text-green-600 bg-opacity-20 px-4 py-2 rounded-full">
+          <div className="flex items-center bg-white text-green-700 px-4 py-2 rounded-full font-medium">
             <Briefcase className="w-5 h-5 mr-2" />
             <span>Secure Payments</span>
           </div>
         </div>
       </div>
-      
+
       {/* Professional Listing */}
       <div className="mb-10">
-        <h2 className="text-2xl font-semibold mb-6 border-b pb-2">Available {formatServiceName(serviceSlug)} Professionals</h2>
-        
+        <h2 className="text-2xl font-semibold mb-6 border-b pb-2">
+          Available {formatServiceName(serviceSlug)} Professionals
+        </h2>
+
         {professionals.length === 0 ? (
           <div className="bg-gray-100 p-6 rounded-lg text-center">
             <p className="text-gray-700 text-lg">No professionals available for this service at the moment.</p>
@@ -201,21 +152,14 @@ const ServiceDetail = () => {
                       <h3 className="text-xl font-bold text-gray-800">{professional.name}</h3>
                       <div className="mt-1 flex items-center">
                         <span className="text-gray-600 mr-2">Rating:</span>
-                        <div className="flex items-center">
-                          {Array.from({ length: Math.floor(professional.rating) }).map((_, index) => (
-                            <Star key={index} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                          ))}
-                          {professional.rating % 1 > 0 && (
-                            <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
-                          )}
-                          <span className="ml-2 text-sm text-gray-600">({professional.reviews} reviews)</span>
-                        </div>
+                        {renderStars(professional.rating)}
+                        <span className="ml-2 text-sm text-gray-600">({professional.reviews} reviews)</span>
                       </div>
                     </div>
                   </div>
-                  
+
                   <p className="mt-4 text-gray-700">{professional.bio}</p>
-                  
+
                   <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-2">
                     <div className="flex items-center text-gray-700">
                       <Briefcase className="w-4 h-4 mr-2 text-green-600" />
@@ -234,7 +178,7 @@ const ServiceDetail = () => {
                       <span>{professional.hourlyRate}/hr</span>
                     </div>
                   </div>
-                  
+
                   <div className="mt-4">
                     <p className="text-sm font-medium text-gray-700 mb-2">Specialties:</p>
                     <div className="flex flex-wrap gap-2">
@@ -245,19 +189,22 @@ const ServiceDetail = () => {
                       ))}
                     </div>
                   </div>
-                  
+
                   <div className="mt-6 flex gap-3">
-                    <button 
+                    <button
                       onClick={() => handleBooking(professional)}
                       className="flex-1 bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded-md font-medium transition-colors flex items-center justify-center"
                     >
                       <Calendar className="w-4 h-4 mr-2" />
                       Book Now
                     </button>
-                    <Link to={'/chat'} className="bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 py-2 px-4 rounded-md font-medium transition-colors flex items-center justify-center">
+                    <button
+                      onClick={() => navigate('/chat')}
+                      className="flex-1 border border-green-600 text-green-600 hover:bg-green-50 py-2 px-4 rounded-md font-medium transition-colors flex items-center justify-center"
+                    >
                       <MessageSquare className="w-4 h-4 mr-2" />
                       Contact
-                    </Link>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -265,20 +212,19 @@ const ServiceDetail = () => {
           </div>
         )}
       </div>
-      
+
       {/* Booking Modal */}
       {bookingMode && selectedPro && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg shadow-xl p-6 max-w-md w-full">
-            <h3 className="text-xl font-bold mb-4">Book {selectedPro.name}</h3>
-            <p className="mb-4 text-gray-700">Fill out the form below to schedule an appointment.</p>
-            
+          <div className="bg-white rounded-lg shadow-xl w-full max-w-md p-6">
+            <h2 className="text-2xl font-bold mb-4">
+              Book {selectedPro.name}
+            </h2>
             <form className="space-y-4">
               <div>
-                <label className="block text-gray-700 mb-1">Service Date</label>
+                <label className="block text-gray-700 mb-1">Preferred Date</label>
                 <input type="date" className="w-full p-2 border rounded-md" />
               </div>
-              
               <div>
                 <label className="block text-gray-700 mb-1">Preferred Time</label>
                 <select className="w-full p-2 border rounded-md">
@@ -287,28 +233,25 @@ const ServiceDetail = () => {
                   <option>Evening (4PM - 8PM)</option>
                 </select>
               </div>
-              
               <div>
                 <label className="block text-gray-700 mb-1">Service Details</label>
                 <textarea className="w-full p-2 border rounded-md" rows="3" placeholder="Describe your needs..."></textarea>
               </div>
-              
               <div>
                 <label className="block text-gray-700 mb-1">Your Address</label>
                 <input type="text" className="w-full p-2 border rounded-md" placeholder="Enter your address" />
               </div>
-              
               <div className="pt-2 flex gap-4">
-                <button 
-                  type="button" 
+                <button
+                  type="button"
                   onClick={closeBookingForm}
                   className="bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 px-6 rounded-md font-medium transition-colors"
                 >
                   Cancel
                 </button>
-                <button 
+                <button
                   type="submit"
-                  onClick={() => navigate('/pay')} 
+                  onClick={() => navigate('/pay')}
                   className="bg-green-600 hover:bg-green-700 text-white py-2 px-6 rounded-md font-medium transition-colors flex-1"
                 >
                   Confirm Booking
@@ -318,7 +261,7 @@ const ServiceDetail = () => {
           </div>
         </div>
       )}
-      
+
     </div>
   );
 };
