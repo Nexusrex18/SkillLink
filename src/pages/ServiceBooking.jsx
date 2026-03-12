@@ -1,29 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { BookOpen, ArrowRight } from "lucide-react";
+import { serviceCategories } from "../data/ServicesData";
 
-const services = [
-  { 
-    "name": "Painter", 
-    "image": "🎨",
-    "content": "Professional painting services for homes and businesses. Interior and exterior painting with high-quality finishes.",
-    "features": ["Interior & Exterior", "Color Consultation", "Eco-Friendly Paints"],
-    "slug": "painter"
-  },
-  { 
-    "name": "Mechanic", 
-    "image": "🔧",
-    "content": "Expert auto mechanics offering repairs, diagnostics, and maintenance for all types of vehicles.",
-    "features": ["Engine Repairs", "Oil Change", "Brake Services"],
-    "slug": "mechanic"
-  },
-  { 
-    "name": "Mason", 
-    "image": "🧱",
-    "content": "Experienced masons for brick, stone, and concrete work. Specialized in building and repairing structures.",
-    "features": ["Bricklaying", "Concrete Work", "Stone Masonry"],
-    "slug": "mason"
-  }
-];
+export { serviceCategories };
 
 const ServiceCard = ({ service }) => {
   const navigate = useNavigate();
@@ -79,7 +58,7 @@ const ServiceBooking = () => {
         </div>
           
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
-          {services.map((service, index) => (
+          {serviceCategories.map((service, index) => (
             <ServiceCard key={index} service={service} />
           ))}
         </div>
